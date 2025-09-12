@@ -75,26 +75,29 @@ endif
 ######################################
 # C sources
 C_SOURCES =  \
-Core/Src/stm32f1xx_hal_msp.c \
-Core/Src/stm32f1xx_it.c \
-Core/Src/syscalls.c \
+Core/Src/stm32f4xx_it.c \
+Core/Src/stm32f4xx_hal_msp.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c \
+Core/Src/system_stm32f4xx.c \
 Core/Src/sysmem.c \
-Core/Src/system_stm32f1xx.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c
+Core/Src/syscalls.c  
 
 
 CXX_SOURCES = \
@@ -103,7 +106,7 @@ Core/Src/main.cpp
 
 # ASM sources
 ASM_SOURCES =  \
-startup_stm32f103xb.s
+startup_stm32f411xe.s
 
 
 #######################################
@@ -156,13 +159,13 @@ OPENOCD ?= openocd
 # CFLAGS
 #######################################
 # cpu
-CPU = -mcpu=cortex-m3
+CPU = -mcpu=cortex-m4
 
 # fpu
-FPU = 
+FPU = -mfpu=fpv4-sp-d16
 
 # float-abi
-FLOAT-ABI = 
+FLOAT-ABI = -mfloat-abi=hard
 
 # mcu
 MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
@@ -173,13 +176,13 @@ AS_DEFS =
 
 # C defines
 C_DEFS =  \
--DSTM32F103xB \
--DUSE_HAL_DRIVER
+-DUSE_HAL_DRIVER \
+-DSTM32F411xE
 
 
 # CXX defines
 CXX_DEFS =  \
--DSTM32F103xB \
+-DSTM32F411xE \
 -DUSE_HAL_DRIVER
 
 
@@ -189,10 +192,10 @@ AS_INCLUDES = \
 # C includes
 C_INCLUDES =  \
 -ICore/Inc \
--IDrivers/CMSIS/Device/ST/STM32F1xx/Include \
+-IDrivers/CMSIS/Device/ST/STM32F4xx/Include \
 -IDrivers/CMSIS/Include \
--IDrivers/STM32F1xx_HAL_Driver/Inc \
--IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy
+-IDrivers/STM32F4xx_HAL_Driver/Inc \
+-IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy
 
 
 
@@ -222,7 +225,7 @@ CXXFLAGS += $(ASSEMBLER_LIST_OUTPUT_FLAG)
 # LDFLAGS
 #######################################
 # link script
-LDSCRIPT = STM32F103C8Tx_FLASH.ld
+LDSCRIPT = STM32F411CEUx_FLASH.ld
 
 # libraries
 LIBS = -lc -lm -lnosys 
@@ -340,7 +343,7 @@ flash: all
 # erase
 #######################################
 erase: all
-	"$(OPENOCD)" -f ./openocd.cfg -c "init; reset halt; stm32f1x mass_erase 0; exit"
+	"$(OPENOCD)" -f ./openocd.cfg -c "init; reset halt; stm32f4x mass_erase 0; exit"
 
 #######################################
 # clean up

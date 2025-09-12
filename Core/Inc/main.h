@@ -27,7 +27,7 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f1xx_hal.h"
+#include "stm32f4xx_hal.h"
 #include "MPU9250.h"
 #include "QMC5883.h"
 #include "InnerProto_UART.h"
