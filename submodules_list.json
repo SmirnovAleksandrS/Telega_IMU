@@ -17,6 +17,12 @@
       "url": "https://github.com/SmirnovAleksandrS/Platform2_QMC5883",
       "rev": "main",
       "dst": "submodules/qmc5883-lib"
+    },
+    "mt6701_lib": {
+      "name": "MT6701_LIB",
+      "url": "/home/necrosii/Programming/Microcontrollers/Stm32/Telega_IMU/TestGitStruct/Platform2_MT6701",
+      "rev": "main",
+      "dst": "submodules/mt6701-lib"
     }
   }
 }

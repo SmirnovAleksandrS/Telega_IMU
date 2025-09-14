@@ -28,9 +28,13 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
+#include "stdio.h"
+// #include "cstring"
 #include "MPU9250.h"
 #include "QMC5883.h"
 #include "InnerProto_UART.h"
+#include "MT6701.h"
+#include "MT6701_tests.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -59,9 +63,14 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LED_Pin GPIO_PIN_13
-#define LED_GPIO_Port GPIOC
-
+#define BLINK_LED_Pin GPIO_PIN_13
+#define BLINK_LED_GPIO_Port GPIOC
+#define PWM_IN_2_Pin GPIO_PIN_5
+#define PWM_IN_2_GPIO_Port GPIOA
+#define GPIO_IN_3_Pin GPIO_PIN_6
+#define GPIO_IN_3_GPIO_Port GPIOA
+#define PWM_IN_4_Pin GPIO_PIN_6
+#define PWM_IN_4_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
